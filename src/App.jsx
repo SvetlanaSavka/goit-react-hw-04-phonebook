@@ -23,10 +23,6 @@ export const App = () => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-
   const validationData = data =>
     contacts.find(contact => contact.name === data.name);
 
@@ -62,15 +58,16 @@ export const App = () => {
     setContacts(filteredArray);
   };
 
-  const visibleContacts = getVisibleContacts();
-
   return (
     <Container>
       <h1>Phonebook</h1>
       <ContactForm onSubmit={addContacts} />
       <h2>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />
-      <ContactList contacts={visibleContacts} onRemoveContact={deleteContact} />
+      <ContactList
+        contacts={getVisibleContacts()}
+        onRemoveContact={deleteContact}
+      />
     </Container>
   );
 };
